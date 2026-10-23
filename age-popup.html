@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en-AU">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Age Notice – ComplyWise AU</title>
+<link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box}
+:root{--bg:#070a16;--card:#0f1530;--text:#e7ecff;--muted:#9aa6cf;--c1:#22d3ee;--c2:#8b5cf6;--line:#1f2a55}
+body{margin:0;min-height:100vh;background:radial-gradient(circle at 80% 15%,rgba(139,92,246,.35),transparent 45%),var(--bg);color:var(--text);font:16px/1.7 "Space Grotesk",system-ui,sans-serif}
+.page{max-width:760px;margin:auto;padding:80px 20px}
+.page h1{font-size:clamp(28px,5vw,44px);line-height:1.15;margin:0 0 12px}
+.page p{color:var(--muted)}
+.gr{background:linear-gradient(90deg,var(--c1),var(--c2));-webkit-background-clip:text;background-clip:text;color:transparent}
+#gate{position:fixed;inset:0;z-index:100;display:none;align-items:center;justify-content:center;padding:20px;background:rgba(4,6,15,.82);backdrop-filter:blur(8px)}
+#gate.open{display:flex}
+.box{width:100%;max-width:460px;background:linear-gradient(160deg,#131a3d,#0b1030);border:1px solid var(--line);border-radius:22px;padding:34px 28px;text-align:center;box-shadow:0 30px 80px rgba(0,0,0,.6),0 0 60px rgba(34,211,238,.12);animation:in .5s ease}
+@keyframes in{from{opacity:0;transform:translateY(20px) scale(.97)}}
+.badge{width:84px;height:84px;margin:0 auto 14px;border-radius:50%;display:grid;place-items:center;font:700 30px "JetBrains Mono",monospace;color:#06101f;background:linear-gradient(135deg,var(--c1),var(--c2));box-shadow:0 0 0 0 rgba(34,211,238,.5);animation:pl 2.4s infinite}
+@keyframes pl{70%{box-shadow:0 0 0 22px rgba(34,211,238,0)}100%{box-shadow:0 0 0 0 rgba(34,211,238,0)}}
+.box h2{margin:0 0 8px;font-size:26px}
+.box p{color:var(--muted);margin:0 0 20px;font-size:15px}
+.btns{display:grid;gap:10px}
+button,.lnk{font:700 16px "Space Grotesk",sans-serif;border-radius:12px;padding:13px 18px;cursor:pointer;text-decoration:none;display:block;border:0}
+.yes{background:linear-gradient(135deg,var(--c1),var(--c2));color:#06101f;transition:.2s}.yes:hover{transform:translateY(-2px);box-shadow:0 10px 26px rgba(34,211,238,.35)}
+.no{background:transparent;color:var(--text);border:1px solid var(--line)}.no:hover{border-color:var(--c1)}
+.fine{margin-top:16px;font-size:12.5px;color:var(--muted)}.fine a{color:var(--c1)}
+#minor{display:none}.box.under #ask{display:none}.box.under #minor{display:block}
+@media(prefers-reduced-motion:reduce){.box,.badge{animation:none}}
+</style>
+</head>
+<body>
+
+<!-- ===== AGE POPUP: start ===== -->
+<div id="gate" role="dialog" aria-modal="true" aria-labelledby="gt">
+  <div class="box" id="gbox">
+    <div id="ask">
+      <div class="badge">18+</div>
+      <h2 id="gt">Are you 18 or older?</h2>
+      <p>This website discusses gambling rules and is intended for adults. We do not offer games or accept bets.</p>
+      <div class="btns">
+      <a class="lnk yes" href="index.html" id="yes">Yes, I am 18 or older</a>
+       <a class="lnk no" href="https://www.gamblinghelponline.org.au" id="no">No, I am under 18</a>
+      </div>
+      <div class="fine">Need support? Gambling Help Online: <a href="https://www.gamblinghelponline.org.au" target="_blank" rel="noopener">1800 858 858</a></div>
+    </div>
+    <div id="minor">
+      <div class="badge">!</div>
+      <h2>Sorry, this site is for adults</h2>
+      <p>Thanks for being honest. This content is meant for people aged 18 and over. If you would like to talk to someone, free and confidential support is available.</p>
+      <div class="btns">
+        <a class="lnk yes" href="https://kidshelpline.com.au" target="_blank" rel="noopener">Visit Kids Helpline</a>
+        <button class="no" id="back">Go back</button>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+(function(){
+  var g=document.getElementById("gate"),b=document.getElementById("gbox"),K="cw_age_ok";
+  function ok(){try{return sessionStorage.getItem(K)==="1"}catch(e){return false}}
+  function save(){try{sessionStorage.setItem(K,"1")}catch(e){}}
+  if(!ok()){setTimeout(function(){g.classList.add("open")},800)}
+  document.getElementById("yes").onclick=function(){save();g.classList.remove("open")};
+  document.getElementById("no").onclick=function(){b.classList.add("under")};
+  document.getElementById("back").onclick=function(){b.classList.remove("under")};
+})();
+</script>
+<!-- ===== AGE POPUP: end ===== -->
+
+</body>
+</html>
